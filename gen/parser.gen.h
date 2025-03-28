@@ -1,0 +1,50 @@
+#include <vector>
+#include <memory>
+#include <string>
+#include "struct_mapping.h"
+class parser {
+std::vector<std::shared_ptr<token>> &tokens; std::vector<std::shared_ptr<token>>::iterator tk;
+public:
+ std::shared_ptr<Node> empty();
+ bool try_empty();
+ parser(std::vector<std::shared_ptr<token>> &tokens);
+ std::shared_ptr<Node> parse();
+ std::shared_ptr<Node> signal_program();
+ bool try_signal_program();
+ std::shared_ptr<Node> program();
+ bool try_program();
+ std::shared_ptr<Node> block();
+ bool try_block();
+ std::shared_ptr<Node> declarations();
+ bool try_declarations();
+ std::shared_ptr<Node> label_declarations();
+ bool try_label_declarations();
+ std::shared_ptr<Node> labels_list();
+ bool try_labels_list();
+ std::shared_ptr<Node> statements_list();
+ bool try_statements_list();
+ std::shared_ptr<Node> statement();
+ bool try_statement();
+ std::shared_ptr<Node> cond_statement();
+ bool try_cond_statement();
+ std::shared_ptr<Node> goto_statement();
+ bool try_goto_statement();
+ std::shared_ptr<Node> condition_statement();
+ bool try_condition_statement();
+ std::shared_ptr<Node> incomplete_condition_statement();
+ bool try_incomplete_condition_statement();
+ std::shared_ptr<Node> conditional_expression();
+ bool try_conditional_expression();
+ std::shared_ptr<Node> alternative_part();
+ bool try_alternative_part();
+ std::shared_ptr<Node> alt();
+ bool try_alt();
+ std::shared_ptr<Node> variable_identifier();
+ bool try_variable_identifier();
+ std::shared_ptr<Node> procedure_identifier();
+ bool try_procedure_identifier();
+ std::shared_ptr<Node> identifier();
+ bool try_identifier();
+ std::shared_ptr<Node> unsigned_integer();
+ bool try_unsigned_integer();
+};

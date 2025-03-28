@@ -1,0 +1,38 @@
+token_body=content;
+node_name=rule_name;
+node_children=children;
+node_tokens=tokens;
+token=token;
+node=Node;
+parser=parser;
+parse=parse;
+decl_header = struct_mapping;
+root_rule = signal_program;
+
+
+<signal_program> --> <program>;
+<program> --> 'PROGRAM' <procedure_identifier> ';' <block>'.';
+<block> --> <declarations> 'BEGIN' <statements_list> 'END';
+<declarations> --> <label_declarations>;
+<label_declarations> --> 'LABEL' <unsigned_integer> <labels_list>';' | <empty>;
+<labels_list> --> ',' <unsigned_integer> <labels_list> | <empty>;
+<statements_list> --> <statement> <statements_list> | <empty>;
+<statement> --> <unsigned_integer> ':' <statement> | <cond_statement> | <goto_statement> ;
+<cond_statement> --> <condition_statement> 'ENDIF' ';' ;
+<goto_statement> --> 'GOTO' <unsigned_integer> ';' ;
+<condition_statement> --> <incomplete_condition_statement><alternative_part> ;
+<incomplete_condition_statement> --> 'IF' <conditional_expression> 'THEN' <statements_list> ;
+<conditional_expression> --> <variable_identifier> '=' <unsigned_integer> ;
+<alternative_part> --> <alt> | <empty> ;
+<alt> --> 'ELSE' <statements_list>;
+<variable_identifier> --> <identifier>;
+<procedure_identifier> --> <identifier>;
+
+
+<identifier> --> {
+    (*tk)->token_code > 1000
+};
+<unsigned_integer> --> {
+    (*tk)->token_code > 500 && (*tk)->token_code < 1000
+};
+
